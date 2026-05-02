@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIPHDER Consultancy Limited</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #111827;
+      --ink-2:     #374151;
+      --ink-3:     #6b7280;
+      --surface:   #f8f7f4;
+      --surface-2: #ffffff;
+      --border:    #e5e1d8;
+      --teal:      #0d6e6e;
+      --teal-lt:   #e6f4f4;
+      --teal-mid:  #0f8a8a;
+      --gold:      #b8860b;
+      --gold-lt:   #fdf8ed;
+      --accent:    #c17f24;
+      --display:   'Playfair Display', serif;
+      --body:      'Outfit', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--surface);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── TICKER NOTICE ── */
+    #notice-bar {
+      background: var(--ink);
+      color: #fff;
+      overflow: hidden;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .notice-label {
+      flex-shrink: 0;
+      background: var(--gold);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 0 1.2rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      z-index: 2;
+      white-space: nowrap;
+    }
+    .ticker-wrap {
+      overflow: hidden;
+      flex: 1;
+      height: 100%;
+      position: relative;
+    }
+    .ticker-track {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      width: max-content;
+      animation: ticker 28s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      white-space: nowrap;
+      padding: 0 3rem;
+      font-size: .82rem;
+      font-weight: 400;
+      color: rgba(255,255,255,.88);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .ticker-item strong { color: #fff; font-weight: 600; }
+    .ticker-sep {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0;
+    }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 68px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: .85rem; text-decoration: none; }
+    .nav-mark {
+      width: 40px; height: 40px; border-radius: 4px;
+      background: var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-size: 1.1rem; font-weight: 700;
+      color: #fff; letter-spacing: .02em;
+    }
+    .nav-name {
+      font-family: var(--display); font-size: 1.2rem; font-weight: 700;
+      color: var(--ink); letter-spacing: .02em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--ink-3); text-decoration: none; font-size: .83rem;
+      letter-spacing: .04em; font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta {
+      background: var(--teal); color: #fff;
+      border: none; padding: .55rem 1.4rem; border-radius: 4px;
+      font-family: var(--body); font-size: .82rem; font-weight: 600;
+      letter-spacing: .04em; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--teal-mid); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 92vh;
+      display: grid; place-items: center;
+      position: relative; overflow: hidden;
+      padding: 6rem 5vw 4rem;
+      background: linear-gradient(135deg, #f0ede6 0%, #e8f4f4 50%, #f5f0e8 100%);
+    }
+    .hero-pattern {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(13,110,110,.07) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(184,134,11,.06) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(13,110,110,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,110,110,.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 860px; text-align: center;
+      animation: fadeUp .9s ease both;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: rgba(13,110,110,.1);
+      border: 1px solid rgba(13,110,110,.25);
+      border-radius: 999px; padding: .4rem 1.1rem;
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--teal); font-weight: 600; margin-bottom: 2rem;
+    }
+    .pulse-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--teal); animation: pulse 2s infinite;
+    }
+    h1.hero-title {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+      font-weight: 700; line-height: 1.08;
+      color: var(--ink); margin-bottom: 1.2rem;
+    }
+    h1.hero-title em { font-style: italic; color: var(--teal); }
+    .hero-sub {
+      font-size: clamp(.95rem, 1.6vw, 1.1rem);
+      color: var(--ink-3); max-width: 580px;
+      margin: 0 auto 2.8rem; line-height: 1.8; font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--teal); color: #fff;
+      padding: .85rem 2.2rem; border: none; border-radius: 4px;
+      font-size: .9rem; font-weight: 600; letter-spacing: .03em;
+      cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--teal-mid); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,110,110,.2); }
+    .btn-outline {
+      background: transparent; color: var(--teal);
+      padding: .85rem 2.2rem; border: 1.5px solid rgba(13,110,110,.4);
+      border-radius: 4px; font-size: .9rem; font-weight: 600;
+      cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block;
+    }
+    .btn-outline:hover { background: rgba(13,110,110,.06); border-color: var(--teal); }
+    .hero-stats {
+      position: relative; z-index: 1;
+      display: flex; gap: 3rem; justify-content: center;
+      margin-top: 4rem; flex-wrap: wrap;
+      animation: fadeUp .9s .3s ease both;
+    }
+    .stat { text-align: center; }
+    .stat .num {
+      font-family: var(--display);
+      font-size: 2.4rem; font-weight: 700; color: var(--teal); line-height: 1;
+    }
+    .stat .label { font-size: .75rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: .1em; margin-top: .3rem; }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 6rem 5vw; }
+    .section-label {
+      display: inline-block; font-size: .7rem; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--teal); font-weight: 600;
+      margin-bottom: .75rem;
+    }
+    h2.section-title {
+      font-family: var(--display);
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 700; line-height: 1.18;
+      color: var(--ink); margin-bottom: 1rem;
+    }
+    h2.section-title em { font-style: italic; color: var(--teal); }
+    .section-body { color: var(--ink-3); line-height: 1.8; max-width: 540px; font-size: .95rem; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px; background: var(--border); margin: 0 5vw;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: #fff; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-card {
+      background: var(--teal-lt);
+      border: 1px solid rgba(13,110,110,.18);
+      border-radius: 8px; padding: 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .about-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--teal-mid));
+    }
+    .about-card .big-letter {
+      font-family: var(--display);
+      font-size: 8rem; font-weight: 700; line-height: 1;
+      color: rgba(13,110,110,.07); position: absolute;
+      top: -.5rem; right: 1rem; pointer-events: none;
+    }
+    .about-card p { font-size: .93rem; color: var(--ink-2); line-height: 1.85; position: relative; z-index: 1; }
+    .about-card .motto {
+      font-family: var(--display); font-style: italic;
+      font-size: 1.2rem; color: var(--teal); margin-bottom: 1rem; display: block;
+    }
+    .rc-badge {
+      display: inline-block; background: var(--gold-lt);
+      border: 1px solid rgba(184,134,11,.3); color: var(--gold);
+      font-size: .73rem; letter-spacing: .08em; padding: .3rem .75rem;
+      border-radius: 3px; margin-top: 1.5rem; font-weight: 600;
+    }
+    .sectors { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+    .sector-tag {
+      background: var(--teal-lt);
+      border: 1px solid rgba(13,110,110,.2);
+      color: var(--teal); font-size: .73rem; padding: .35rem .8rem;
+      border-radius: 3px; letter-spacing: .04em; font-weight: 500;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--surface); }
+    .services-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+      align-items: end; margin-bottom: 3.5rem;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.09); }
+    .service-img {
+      width: 100%; height: 180px; object-fit: cover; display: block;
+      filter: brightness(.97) saturate(1.05);
+      transition: transform .4s ease;
+    }
+    .service-card:hover .service-img { transform: scale(1.04); }
+    .service-img-wrap { overflow: hidden; position: relative; }
+    .service-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(13,110,110,.15));
+    }
+    .service-body { padding: 1.75rem; }
+    .service-num {
+      font-family: var(--display); font-size: .8rem; font-weight: 700;
+      color: var(--teal); letter-spacing: .1em; margin-bottom: .5rem;
+    }
+    .service-card h3 {
+      font-family: var(--display); font-size: 1.2rem; font-weight: 700;
+      color: var(--ink); margin-bottom: .6rem;
+    }
+    .service-card p { font-size: .85rem; color: var(--ink-3); line-height: 1.7; }
+    .service-list { list-style: none; margin-top: 1rem; }
+    .service-list li {
+      font-size: .8rem; color: var(--ink-3);
+      padding: .3rem 0; border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: .5rem; line-height: 1.5;
+    }
+    .service-list li::before { content: '→'; color: var(--teal); flex-shrink: 0; margin-top: .05rem; }
+
+    /* ── TEAM ── */
+    #team { background: #fff; }
+    .team-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+      align-items: end; margin-bottom: 3.5rem;
+    }
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5rem;
+    }
+    .team-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .team-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.08); }
+    .team-photo-wrap {
+      position: relative; height: 220px; overflow: hidden;
+      background: var(--teal-lt);
+    }
+    .team-photo {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center;
+      display: block;
+      transition: transform .4s ease;
+    }
+    .team-card:hover .team-photo { transform: scale(1.04); }
+    .team-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(17,24,39,.25));
+    }
+    .team-role-badge {
+      position: absolute; bottom: 1rem; left: 1rem;
+      background: var(--teal); color: #fff;
+      font-size: .68rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; padding: .25rem .7rem; border-radius: 3px;
+    }
+    .team-body { padding: 1.5rem; }
+    .team-name {
+      font-family: var(--display); font-size: 1.1rem; font-weight: 700;
+      color: var(--ink); margin-bottom: .15rem;
+    }
+    .team-role-sub { font-size: .75rem; color: var(--teal); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; margin-bottom: .8rem; }
+    .team-bio { font-size: .83rem; color: var(--ink-3); line-height: 1.7; margin-bottom: 1rem; }
+    .team-contacts { display: flex; flex-direction: column; gap: .35rem; }
+    .team-contact-row {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .8rem; color: var(--ink-3);
+    }
+    .tc-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+    /* ── PHILOSOPHY ── */
+    #philosophy {
+      background: var(--teal);
+      position: relative; overflow: hidden;
+    }
+    #philosophy::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .philosophy-inner {
+      max-width: 860px; margin: 0 auto; text-align: center; position: relative; z-index: 1;
+    }
+    .philosophy-inner .section-label { color: rgba(255,255,255,.7); }
+    .big-quote {
+      font-family: var(--display);
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 400; font-style: italic;
+      color: rgba(255,255,255,.95); line-height: 1.55;
+      margin: 2rem 0;
+    }
+    .big-quote strong { color: #fff; font-weight: 700; font-style: normal; }
+    .philosophy-cols {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-top: 4rem;
+      text-align: left;
+    }
+    .phil-item {
+      padding: 1.5rem;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 6px;
+    }
+    .phil-item h4 {
+      font-family: var(--display); font-size: 1.05rem; font-weight: 700;
+      color: #fff; margin-bottom: .5rem;
+    }
+    .phil-item p { font-size: .85rem; color: rgba(255,255,255,.75); line-height: 1.7; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--surface); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-detail {
+      display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.5rem;
+    }
+    .contact-detail .icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      background: var(--teal-lt); border: 1px solid rgba(13,110,110,.2);
+      border-radius: 4px; display: grid; place-items: center; font-size: .95rem;
+    }
+    .contact-detail .text strong {
+      display: block; font-size: .73rem; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--ink-3); margin-bottom: .2rem; font-weight: 600;
+    }
+    .contact-detail .text span { color: var(--ink); font-size: .9rem; }
+    .contact-form {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 8px; padding: 2.5rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,.05);
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block; font-size: .73rem; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--ink-3); margin-bottom: .5rem; font-weight: 600;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: .75rem 1rem; color: var(--ink);
+      font-family: var(--body); font-size: .9rem;
+      outline: none; transition: border-color .2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(13,110,110,.1); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); padding: 2.5rem 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer .logo-text {
+      font-family: var(--display); font-size: 1.15rem; font-weight: 700; color: #fff;
+    }
+    footer p { font-size: .78rem; color: rgba(255,255,255,.5); }
+    footer .motto-footer { font-style: italic; font-size: .82rem; color: rgba(255,255,255,.7); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%  { opacity: .5; transform: scale(.8); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .about-grid, .services-header, .team-intro,
+      .contact-grid, .philosophy-cols { grid-template-columns: 1fr; }
+      .nav-links, .nav-cta { display: none; }
+      .hero-stats { gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANIMATED ADDRESS NOTICE -->
+  <div id="notice-bar">
+    <div class="notice-label">Address Update</div>
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <!-- duplicated for seamless loop -->
+        <div class="ticker-item">
+          <span>NIPHDER Consultancy Limited has relocated.</span>
+          <div class="ticker-sep"></div>
+          <span><strong>New Address:</strong> 101 Ebitu Ukiwe Street, Jabi District, Abuja, Nigeria</span>
+          <div class="ticker-sep"></div>
+          <span>Former address: No. 6, Block 7 Amazuma Street, Area 2, Garki, Abuja is no longer active. Please update your records.</span>
+          <div class="ticker-sep"></div>
+        </div>
+        <div class="ticker-item">
+          <span>NIPHDER Consultancy Limited has relocated.</span>
+          <div class="ticker-sep"></div>
+          <span><strong>New Address:</strong> 101 Ebitu Ukiwe Street, Jabi District, Abuja, Nigeria</span>
+          <div class="ticker-sep"></div>
+          <span>Former address: No. 6, Block 7 Amazuma Street, Area 2, Garki, Abuja is no longer active. Please update your records.</span>
+          <div class="ticker-sep"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">
+      <div class="nav-mark">N</div>
+      <span class="nav-name">NIPHDER</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Partner With Us</button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="pulse-dot"></div>
+        Nigeria Platform for Health &amp; Developmental Research
+      </div>
+      <h1 class="hero-title">
+        Advancing Human<br><em>Development</em><br>for a Better Society
+      </h1>
+      <p class="hero-sub">
+        A CAC-registered consultancy delivering expert guidance across health, agriculture, education, commerce, science &amp; technology, and social development in Nigeria.
+      </p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">Explore Our Services</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="num">8</div><div class="label">Service Sectors</div></div>
+      <div class="stat"><div class="num">4</div><div class="label">Core Specialties</div></div>
+      <div class="stat"><div class="num">RC</div><div class="label">1085995 · CAC Registered</div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <span class="section-label">Who We Are</span>
+        <h2 class="section-title">A Trusted Partner<br>for <em>Organisational Growth</em></h2>
+        <p class="section-body">
+          NIPHDER — the <strong>NI</strong>geria <strong>P</strong>latform for <strong>H</strong>ealth and <strong>DE</strong>velopmental <strong>R</strong>esearch — is a corporate consultancy firm registered with the Corporate Affairs Commission (CAC) of Nigeria. We serve both government and private establishments, enabling them to identify breakthrough opportunities, build competitive advantage, and maximise value.
+        </p>
+        <div class="sectors">
+          <span class="sector-tag">Health</span>
+          <span class="sector-tag">Agriculture</span>
+          <span class="sector-tag">Education</span>
+          <span class="sector-tag">Commerce &amp; Industry</span>
+          <span class="sector-tag">Science &amp; Technology</span>
+          <span class="sector-tag">Environment</span>
+          <span class="sector-tag">ICT</span>
+          <span class="sector-tag">Social Development</span>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-card">
+          <div class="big-letter">N</div>
+          <span class="motto">…advancing human development for a better society.</span>
+          <p>
+            Our diverse team of consultants are passionate about client success. We work as true partners — taking the crucial next step alongside you in the implementation of solutions. With deep expertise in Nigeria's socio-economic dynamics, we are well-positioned to deliver real value and exceed expectations.
+          </p>
+          <div class="rc-badge">CAC Registered · RC: 1085995</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-header reveal">
+      <div>
+        <span class="section-label">What We Do</span>
+        <h2 class="section-title">Four Core<br><em>Specialties</em></h2>
+      </div>
+      <p class="section-body">
+        We provide technical expertise, guidance, and advice across four key practice areas — each designed to create measurable impact for your organisation.
+      </p>
+    </div>
+
+    <div class="services-grid reveal">
+
+      <div class="service-card">
+        <div class="service-img-wrap">
+          <img
+            class="service-img"
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format&fit=crop"
+            alt="Project Management"
+            loading="lazy"
+          />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-num">01</div>
+          <h3>Project Management</h3>
+          <p>End-to-end project expertise from proposal to sustenance — ensuring quality, timeliness, and measurable results.</p>
+          <ul class="service-list">
+            <li>Project proposal development &amp; preparation</li>
+            <li>Project planning &amp; implementation</li>
+            <li>Project performance assessment</li>
+            <li>Risk assessment &amp; management</li>
+            <li>Quality control &amp; quality assurance</li>
+            <li>Monitoring, evaluation &amp; reporting</li>
+            <li>Project consolidation &amp; sustenance</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-img-wrap">
+          <img
+            class="service-img"
+            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80&auto=format&fit=crop"
+            alt="Capacity Building"
+            loading="lazy"
+          />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-num">02</div>
+          <h3>Capacity Building &amp; HR Development</h3>
+          <p>Building organisations from within — through strategic human capital development and management solutions.</p>
+          <ul class="service-list">
+            <li>Strategic HR development &amp; management</li>
+            <li>Organisational learning (including E-learning)</li>
+            <li>Leadership &amp; front-line management</li>
+            <li>Reward &amp; motivation strategy</li>
+            <li>Competency &amp; talent management</li>
+            <li>Organisational change &amp; transformation</li>
+            <li>HR planning, recruitment &amp; selection</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-img-wrap">
+          <img
+            class="service-img"
+            src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&q=80&auto=format&fit=crop"
+            alt="Health and Safety"
+            loading="lazy"
+          />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-num">03</div>
+          <h3>Organisational Health &amp; Safety</h3>
+          <p>Comprehensive health and safety frameworks that protect people, ensure compliance, and build a culture of care.</p>
+          <ul class="service-list">
+            <li>Health &amp; safety policies &amp; audits</li>
+            <li>Risk assessments &amp; occupational health</li>
+            <li>Accident prevention &amp; first aid policy</li>
+            <li>Employer H&amp;S responsibilities</li>
+            <li>Hazard recognition &amp; assessment</li>
+            <li>Disaster management</li>
+            <li>Emergency mitigation &amp; preparedness</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-img-wrap">
+          <img
+            class="service-img"
+            src="https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=600&q=80&auto=format&fit=crop"
+            alt="Research and Policy"
+            loading="lazy"
+          />
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-num">04</div>
+          <h3>Research, Knowledge Brokering &amp; Policy</h3>
+          <p>Commissioned research and knowledge translation that connects organisations to evidence for sound public policy.</p>
+          <ul class="service-list">
+            <li>Exploratory, constructive &amp; empirical research</li>
+            <li>Technical support for research organisations</li>
+            <li>Knowledge brokering &amp; translation</li>
+            <li>Linkages between knowledge producers &amp; users</li>
+            <li>Market insights &amp; research evidence</li>
+            <li>Public policy development support</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="team-intro reveal">
+      <div>
+        <span class="section-label">Our People</span>
+        <h2 class="section-title">The Team Behind<br><em>Every Result</em></h2>
+      </div>
+      <p class="section-body">
+        NIPHDER is powered by dedicated professionals with deep expertise across procurement, technical operations, research, finance, and stakeholder engagement — committed to delivering excellence.
+      </p>
+    </div>
+
+    <div class="team-grid reveal">
+
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img class="team-photo"
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format&fit=crop&crop=face"
+            alt="Valentine Chukwuemeka Odi" loading="lazy" />
+          <div class="team-photo-overlay"></div>
+          <span class="team-role-badge">Procurement</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Valentine Chukwuemeka Odi</div>
+          <div class="team-role-sub">Project Coordinator</div>
+          <p class="team-bio">Valentine leads all procurement operations at NIPHDER, ensuring supply chain integrity, vendor compliance, and cost-effective sourcing. He brings meticulous attention to contract management and institutional procurement standards.</p>
+          <div class="team-contacts">
+            <div class="team-contact-row"><div class="tc-dot"></div> 08184107619</div>
+            <div class="team-contact-row"><div class="tc-dot"></div> Abuja, Nigeria</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img class="team-photo"
+            src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80&auto=format&fit=crop&crop=face"
+            alt="Musa Zakari" loading="lazy" />
+          <div class="team-photo-overlay"></div>
+          <span class="team-role-badge">Technical Support</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Musa Zakari</div>
+          <div class="team-role-sub">Technical Support Officer</div>
+          <p class="team-bio">Musa oversees ICT infrastructure, systems maintenance, and digital tool deployment across all NIPHDER offices and project sites, ensuring seamless technical operations for staff and clients alike.</p>
+          <div class="team-contacts">
+            <div class="team-contact-row"><div class="tc-dot"></div> 08031185834</div>
+            <div class="team-contact-row"><div class="tc-dot"></div> Abuja, Nigeria</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img class="team-photo"
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80&auto=format&fit=crop&crop=face"
+            alt="Adaeze Okafor" loading="lazy" />
+          <div class="team-photo-overlay"></div>
+          <span class="team-role-badge">Operations</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Adaeze Okafor</div>
+          <div class="team-role-sub">Operations &amp; Admin Manager</div>
+          <p class="team-bio">Adaeze coordinates day-to-day operational activities across NIPHDER's service areas. With a strong background in organisational management, she ensures internal processes are efficient, compliant, and strategically aligned.</p>
+          <div class="team-contacts">
+            <div class="team-contact-row"><div class="tc-dot"></div> Abuja, Nigeria</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img class="team-photo"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80&auto=format&fit=crop&crop=face"
+            alt="Emeka Bassey" loading="lazy" />
+          <div class="team-photo-overlay"></div>
+          <span class="team-role-badge">Research</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Emeka Bassey</div>
+          <div class="team-role-sub">Research &amp; Knowledge Management Officer</div>
+          <p class="team-bio">Emeka leads commissioned studies and internal knowledge management, bridging the gap between research producers and policy users to generate insights that drive practical outcomes for clients and communities.</p>
+          <div class="team-contacts">
+            <div class="team-contact-row"><div class="tc-dot"></div> Abuja, Nigeria</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img class="team-photo"
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80&auto=format&fit=crop&crop=face"
+            alt="Fatima Aliyu" loading="lazy" />
+          <div class="team-photo-overlay"></div>
+          <span class="team-role-badge">Finance</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Fatima Aliyu</div>
+          <div class="team-role-sub">Finance &amp; Compliance Officer</div>
+          <p class="team-bio">Fatima manages NIPHDER's financial operations, budget oversight, and regulatory compliance, ensuring all financial reporting meets institutional standards and project disbursements are accurately tracked and audited.</p>
+          <div class="team-contacts">
+            <div class="team-contact-row"><div class="tc-dot"></div> Abuja, Nigeria</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img class="team-photo"
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80&auto=format&fit=crop&crop=face"
+            alt="Tunde Nwachukwu" loading="lazy" />
+          <div class="team-photo-overlay"></div>
+          <span class="team-role-badge">Communications</span>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Tunde Nwachukwu</div>
+          <div class="team-role-sub">Communications &amp; Stakeholder Relations Officer</div>
+          <p class="team-bio">Tunde manages external communications, stakeholder engagement, and public relations for NIPHDER, ensuring the firm's messaging is clear, professional, and consistent across all platforms and client interactions.</p>
+          <div class="team-contacts">
+            <div class="team-contact-row"><div class="tc-dot"></div> Abuja, Nigeria</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="philosophy-inner reveal">
+      <span class="section-label">Our Philosophy</span>
+      <div class="big-quote">
+        "Immense success can be achieved through <strong>long-term planning</strong> and creative problem-solving — creating incalculable benefits for organisations and the surrounding community."
+      </div>
+      <div class="philosophy-cols">
+        <div class="phil-item">
+          <h4>Partnership-Driven</h4>
+          <p>We work alongside our clients as genuine partners, taking the crucial next step in implementing recommendations together.</p>
+        </div>
+        <div class="phil-item">
+          <h4>Nigeria-Grounded</h4>
+          <p>Considerable expertise in Nigeria's socio-economic dynamics and deep awareness of the specifics of each sector we operate in.</p>
+        </div>
+        <div class="phil-item">
+          <h4>Results-Oriented</h4>
+          <p>Our goals are simple and clear, our objectives resolute and tangible. We help clients create competitive edge and maximise their value.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <span class="section-label">Get In Touch</span>
+        <h2 class="section-title">Take Your Organisation<br>to the <em>Next Level</em></h2>
+        <p class="section-body" style="margin-bottom:2.5rem">
+          Partner with NIPHDER Consultancy Limited today and let us help you navigate growth, build capacity, and achieve lasting impact.
+        </p>
+        <div class="contact-detail">
+          <div class="icon">🏢</div>
+          <div class="text">
+            <strong>Office Address</strong>
+            <span>101 Ebitu Ukiwe Street, Jabi District, Abuja, Nigeria</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon">✉️</div>
+          <div class="text">
+            <strong>Email</strong>
+            <span>info@niphder.com</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon">📞</div>
+          <div class="text">
+            <strong>Phone</strong>
+            <span>08184107619</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon">👤</div>
+          <div class="text">
+            <strong>CEO / Executive Director</strong>
+            <span>Valentine Chukwuemeka Odi, NIPHDER Consultancy Limited</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form reveal">
+        <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem;color:var(--ink)">Send Us a Message</h3>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label>Organisation</label>
+          <input type="text" placeholder="Organisation or company name" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Service Area</label>
+          <select>
+            <option value="">Select a service area</option>
+            <option>Project Management</option>
+            <option>Capacity Building &amp; HR Development</option>
+            <option>Organisational Health &amp; Safety</option>
+            <option>Research, Knowledge Brokering &amp; Policy</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us about your needs…"></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%;text-align:center">Send Message</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="logo-text">NIPHDER Consultancy Limited</div>
+      <p>RC: 1085995 · 101 Ebitu Ukiwe Street, Jabi District, Abuja, Nigeria</p>
+    </div>
+    <div style="text-align:right">
+      <div class="motto-footer">…advancing human development for a better society.</div>
+      <p style="margin-top:.4rem">© 2025 NIPHDER Consultancy Limited. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
